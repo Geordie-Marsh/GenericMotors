@@ -18,6 +18,7 @@ const questions = [
 		questionName: "Length",
 		question: "What’s the total length of the car, from the very front to the very back?",
 		answers: ["4.4 metres", "4.5 metres", "4.6 metres"],
+		answerSubtext: ["2% shorter than average", "Average length", "2% longer than average"],
 		correct: "4.4 metres",
 	},
 	{
@@ -134,106 +135,107 @@ export default function Trivia() {
 					if (questionNameElem) questionNameElem.textContent = "";
 					if (questionTextElem) questionTextElem.textContent = "";
 				}
-				// Reset opacity and position of animated elements for next question
-				animateOutElements.forEach((el) => {
+				// Reset opacity and position of animated elements for next question, except the first h4 (question number)
+				animateOutElements.slice(1).forEach((el) => {
 					(el as HTMLElement).style.opacity = "1";
 				});
 			}
 		});
 	}
 
-	useEffect(() => {	
+
+	function newQuestion() {
 		// Stop this from running twice at the same time
 		if (isAnimating) return;
 		setIsAnimating(true);
-
+	
 		// After a short delay, animate in the question number
 		setTimeout(() => {
 			const questionNumber = questionContRef.current?.querySelector("h4");
 			if (!questionNumber) return;
-
+	
 			// Animate in the question number
 			gsap.fromTo(
 				questionNumber,
 				{ scale: 0, x: 0, opacity: 1 },
 				{ scale: 1, x: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
 			);
-
+	
 			// After a short delay, type in the question name and question text
 			setTimeout(() => {
 				typeInQuestionName();
 			}, 300);
 		}, 700);
-		
-
-		function typeInQuestionName() {
-			// Type in the question name letter by letter
-			const qNameText = q.questionName;
-			const questionNameHeading = questionContRef.current?.querySelector("h2");
-			if (!questionNameHeading) return;
+	}
 	
-			questionNameHeading.textContent = "";
-			let charIndexName = 0;
-			const typingIntervalName = setInterval(() => {
-				if (charIndexName < qNameText.length) {
-					questionNameHeading.textContent += qNameText.charAt(charIndexName);
-					charIndexName++;
-				} else {
-					clearInterval(typingIntervalName);
 
-					// Set a slight delay before starting to type the question text
-					setTimeout(() => {
-						typeInQuestionText();
-					}, 200);
-				}
-			}, 30); // Adjust typing speed here (milliseconds per character)
-		}
-		
-		function typeInQuestionText() {
-			// Type in the question text letter by letter
-			const questionText = q.question;
-			const questionParagraph = questionContRef.current?.querySelector("p");
-			if (!questionParagraph) return;
+	function typeInQuestionName() {
+		// Type in the question name letter by letter
+		const qNameText = q.questionName;
+		const questionNameHeading = questionContRef.current?.querySelector("h2");
+		if (!questionNameHeading) return;
+
+		questionNameHeading.textContent = "";
+		let charIndexName = 0;
+		const typingIntervalName = setInterval(() => {
+			if (charIndexName < qNameText.length) {
+				questionNameHeading.textContent += qNameText.charAt(charIndexName);
+				charIndexName++;
+			} else {
+				clearInterval(typingIntervalName);
+
+				// Set a slight delay before starting to type the question text
+				setTimeout(() => {
+					typeInQuestionText();
+				}, 200);
+			}
+		}, 30); // Adjust typing speed here (milliseconds per character)
+	}
 	
-			questionParagraph.textContent = "";
-			let charIndex = 0;
-			const typingInterval = setInterval(() => {
-				if (charIndex < questionText.length) {
-					questionParagraph.textContent += questionText.charAt(charIndex);
-					charIndex++;
-				} else {
-					clearInterval(typingInterval);
+	function typeInQuestionText() {
+		// Type in the question text letter by letter
+		const questionText = q.question;
+		const questionParagraph = questionContRef.current?.querySelector("p");
+		if (!questionParagraph) return;
 
-					// After finishing typing the question, animate in the answers
-					setTimeout(() => {
-						animateInAnswers();
-					}, 200);
-				}
-			}, 20); // Adjust typing speed here (milliseconds per character)
-		}
-		
+		questionParagraph.textContent = "";
+		let charIndex = 0;
+		const typingInterval = setInterval(() => {
+			if (charIndex < questionText.length) {
+				questionParagraph.textContent += questionText.charAt(charIndex);
+				charIndex++;
+			} else {
+				clearInterval(typingInterval);
 
-		function animateInAnswers() {
-			// Animate in the new answer buttons
-			const answers = answersContRef.current?.children;
-			if (!answers) return;
-			gsap.fromTo(
-				answers,
-				{ scale: 0 },
-				{ 
-					scale: 1, 
-					duration: 0.3, 
-					stagger: 0.1,
-					delay: 0.2,
-					ease: "power2.out",
-					onComplete: () => {
-						// Allow further animations after this one is complete
-						setIsAnimating(false);
-					}
+				// After finishing typing the question, animate in the answers
+				setTimeout(() => {
+					animateInAnswers();
+				}, 200);
+			}
+		}, 20); // Adjust typing speed here (milliseconds per character)
+	}
+	
+
+	function animateInAnswers() {
+		// Animate in the new answer buttons
+		const answers = answersContRef.current?.children;
+		if (!answers) return;
+		gsap.fromTo(
+			answers,
+			{ scale: 0 },
+			{ 
+				scale: 1, 
+				duration: 0.3, 
+				stagger: 0.1,
+				delay: 0.2,
+				ease: "power2.out",
+				onComplete: () => {
+					// Allow further animations after this one is complete
+					setIsAnimating(false);
 				}
-			);
-		}
-	}, [currentQuestion]);
+			}
+		);
+	}
 
 	useEffect(() => {
 		// Skip on initial render
@@ -349,6 +351,20 @@ export default function Trivia() {
 	}, [selectedAnswer]);
 
 	
+
+	// Detect when the page first loads to set up the first question
+	useEffect(() => {
+		newQuestion();
+	}, []);
+
+	// Detect when the current question changes to set up the new question
+	useEffect(() => {
+		// Prevent running on initial render
+		if (currentQuestion === 0) return;
+		newQuestion();
+	}, [currentQuestion]);
+
+
 
 
 	
@@ -469,6 +485,7 @@ export default function Trivia() {
 					const isCorrect = ans === q.correct;
 					const isSelected = ans === selectedAnswer;
 					const answered = answeredState;
+					const answerSubtext = q.answerSubtext ? q.answerSubtext[q.answers.indexOf(ans)] : null;
 
 					return (
 						<Answer
@@ -476,6 +493,7 @@ export default function Trivia() {
 							isCorrect={ isCorrect }
 							isSelected={ isSelected }
 							answered={ answered }
+							subtext={ answerSubtext }
 							onClick={ () => handleAnswerSelect(ans, isCorrect) }
 						>{ ans }</Answer>
 					);

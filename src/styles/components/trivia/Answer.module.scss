@@ -1,3 +1,5 @@
+@use "@styles/globals/mixins" as mx;
+
 // .selected {
 // 	.button {
 // 		background-color: #8b8b8b;
@@ -27,6 +29,8 @@
 	button {
 		width: 100%;
 		transition-duration: 0.3s;
+
+		@include mx.flex-vertical-list;
 	}
 
 	&:hover[data-answered="false"] button {

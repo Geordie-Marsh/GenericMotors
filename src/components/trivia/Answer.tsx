@@ -10,11 +10,12 @@ interface AnswerProps {
 	isCorrect?: boolean;
 	isSelected?: boolean;
 	answered?: boolean;
+	subtext?: string;
 	onClick?: () => void;
 	ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
-export default function Answer({children, className, isCorrect, isSelected, answered, onClick, ref}: AnswerProps) {
+export default function Answer({children, className, isCorrect, isSelected, answered, subtext, onClick, ref}: AnswerProps) {
 	  return (
 		<div 
 			className={ styles.answer }
@@ -24,7 +25,7 @@ export default function Answer({children, className, isCorrect, isSelected, answ
 			<button 
 				className={` 
 					${buttonStyles.button}
-					${buttonStyles.large}
+					${buttonStyles.small}
 					${className}
 				`} 
 				ref={ref}
@@ -35,6 +36,9 @@ export default function Answer({children, className, isCorrect, isSelected, answ
 					{/* <button className={`${styles.button} ${styles.large} ${className}`} onClick={ onClick }>{children}</button> */}
 					{ children }
 				</h3>
+				{ subtext && 
+					<p className={ styles.subtext }>({ subtext })</p>
+				}
 			</button>
 		</div>
 	);
