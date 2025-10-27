@@ -36,6 +36,12 @@
 			min-height: 124px;
 
 			justify-content: start;
+
+			h4 {
+				width: fit-content;
+
+				transform: scale(0);
+			}
 		}
 		
 		.answersCont {
