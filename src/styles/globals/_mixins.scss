@@ -1,0 +1,55 @@
+@use "spacing";
+@use "effects";
+
+
+// Flex and grid gap properties
+@mixin gap($size) {
+	@if $size == xs {
+		gap: spacing.$gap-xs;
+	} @else if $size == s {
+		gap: spacing.$gap-s;
+	} @else if $size == m {
+		gap: spacing.$gap-m;
+	} @else if $size == l {
+		gap: spacing.$gap-l;
+	} @else if $size == xl {
+		gap: spacing.$gap-xl;
+	}
+}
+
+
+// Common layouts
+@mixin standard-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	@include gap(m);
+}
+
+@mixin flex-horizontal-list {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+@mixin flex-vertical-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+@mixin screen-width {
+	width: 100vw;
+	padding-left: spacing.$padding;
+	padding-right: spacing.$padding;
+}
+
+
+// Common stylings
+@mixin standard-shadow {
+	box-shadow: effects.$box-shadow;
+}
+
+@mixin standard-rounded {
+	border-radius: effects.$corner;
+}

@@ -1,0 +1,21 @@
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/effects";
+@use "@styles/globals/mixins" as mx;
+
+
+
+.button {
+	@include mx.flex-horizontal-list;
+	@include mx.standard-shadow;
+	//padding: (1.1 * spacing.$unit) (1.7 * spacing.$unit) (0.7 * spacing.$unit);
+	border-radius: 1000px;
+	background-color: colours.$white;
+
+	&.large {
+		padding: (1 * spacing.$unit) (2 * spacing.$unit);
+	}
+	&.small {
+		padding: (0.5 * spacing.$unit) (1 * spacing.$unit);
+	}
+}

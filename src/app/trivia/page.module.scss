@@ -1,0 +1,46 @@
+// Dependencies
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/mixins" as mx;
+
+.triviaCont {
+	@include mx.screen-width;
+	@include mx.flex-vertical-list;
+
+	height: 100vh;
+
+	padding: 4 * spacing.$unit 2 * spacing.$unit;
+
+
+	header {
+		@include mx.flex-horizontal-list;
+
+		.score {
+			.value {
+				
+			}
+		}
+	}
+	
+	
+	.questionAndAnswersCont {
+		@include mx.flex-vertical-list;
+		@include mx.gap(m);
+		
+		.questionCont {
+			@include mx.flex-vertical-list;
+			@include mx.gap(xs);
+		}
+		
+		.answersCont {
+			@include mx.flex-vertical-list;
+			@include mx.gap(s);
+			
+			width: 100%;
+		
+			.answer {
+				width: 100%;
+			}
+		}
+	}
+}

@@ -1,0 +1,66 @@
+// Importing other global stylesheets
+@use "spacing";
+@use "colours";
+@use "effects";
+@use "@styles/globals/mixins" as mx;
+
+// Importing the font - Fractul Variable
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
+// Defining properties that apply to all text
+* {
+	color: colours.$black;
+	font-family: "General Sans", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: 'ss01' on;
+}
+
+// Defining the text styles
+h1 {
+	//TODO: Rejig this
+	font-size: 10.9375 * spacing.$unit;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 97.143%;
+	text-transform: uppercase;
+}
+
+h2 {
+	font-size: 2 * spacing.$unit;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+h3 {
+	font-size: 1.25 * spacing.$unit;
+	font-style: normal;
+	font-weight: 630;
+	line-height: normal;
+}
+
+h4 {
+	font-size: 1 * spacing.$unit;
+	font-style: normal;
+	font-weight: 630;
+	line-height: normal;
+	color: colours.$grey;
+}
+
+p {
+	font-size: 1 * spacing.$unit;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	letter-spacing: 0.05 * spacing.$unit;
+}
+
+b {
+	font-weight: 750;
+}
+
+a {
+	//Removing the default underline from links
+	text-decoration: none;
+}

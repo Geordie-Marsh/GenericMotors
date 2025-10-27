@@ -1,0 +1,40 @@
+// The space unit used - adjusting this one value will adjust all the others accordingly
+$unit: 1rem;
+
+// The website uses two spacer systems: 
+	// a micro scale, used for smaller, more refined spacing, particularly within components;
+	// and a macro scale, used for larger spacing, like positioning components on a page
+/* The space units for each scale are different so that they can be independently adjusted if needed */
+$mi-unit: $unit;
+$ma-unit: $unit;
+
+/* SMALL SCALE */		
+	$mi-01:  0.25  *  $mi-unit; //  4px, 0.25rem
+	$mi-02:  0.5   *  $mi-unit; //  8px,  0.5rem
+	$mi-03:  1     *  $mi-unit; // 16px,    1rem
+	$mi-04:  1.5   *  $mi-unit; // 24px,  1.5rem
+	$mi-05:  2     *  $mi-unit; // 32px,    2rem
+	$mi-06:  3     *  $mi-unit; // 48px,    3rem
+	
+/* LARGE SCALE */
+	$ma-01:  4     *  $ma-unit; // 64px,    4rem
+	$ma-02:  6     *  $ma-unit; // 96px,    6rem
+	$ma-03:  8     *  $ma-unit; // 128px,   8rem
+	$ma-04:  12    *  $ma-unit; // 192px,  12rem
+	$ma-05:  16    *  $ma-unit; // 256px,  16rem
+
+
+// The spacer used as the default padding size of the site, like the padding of the body or betweeen sections
+$padding: 2 * $ma-unit; // Same as $spacer-ma-03
+
+
+// The spacing used in flex and grid layouts
+$gap-xs: $mi-02; //  8px, 0.5rem
+$gap-s:  $mi-03; // 16px,   1rem
+$gap-m:  $mi-05; // 32px,   2rem
+$gap-l:  $ma-01; // 64px,   4rem
+$gap-xl: $ma-03; // 128px,  8rem
+
+
+// The height of the header
+$header-height: 1.5 * $unit; // 24px, 1.5rem
