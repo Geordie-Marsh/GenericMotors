@@ -14,6 +14,9 @@ import Image from "next/image";
 import Answer from "@/components/trivia/Answer";
 import * as Button from "@/components/Button";
 
+// Importing icons
+import iconClose from "@/assets/icons/close.svg";
+
 
 // Registering GSAP
 gsap.registerPlugin(TextPlugin);
@@ -488,7 +491,14 @@ export default function Trivia() {
   return (
 	<div className={ styles.triviaCont }>
 		<header>
-			<Button.Small className={ styles.close }>x</Button.Small>
+			<Button.Small className={ styles.close }>
+				<Image 
+					src={ iconClose } 
+					alt="Close icon" 
+					width={ 16 }
+					height={ 16 }
+				/>
+			</Button.Small>
 			<Button.Small className={ styles.score }><p>Score: <b><span ref={ scoreRef }>0</span>%</b></p></Button.Small>
 		</header>
 

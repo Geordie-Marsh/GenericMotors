@@ -16,10 +16,15 @@
 
 	header {
 		@include mx.flex-horizontal-list;
+		height: fit-content;
+		
+		.close {
+			height: 100%;
+			aspect-ratio: 1 / 1;
+			padding: 0.5 * spacing.$unit;
 
-		.score {
-			.value {
-				
+			img {
+				margin: auto;
 			}
 		}
 	}
