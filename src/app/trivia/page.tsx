@@ -35,6 +35,7 @@ export default function Trivia() {
 	const [score, setScore] = useState(0);
 
 	const answersContRef = useRef<HTMLDivElement>(null);
+	const responseRef = useRef<HTMLParagraphElement>(null);
 	//const nextButtonRef = useRef<HTMLButtonElement>(null);
 
 	const q = questions[currentQuestion];
@@ -45,6 +46,58 @@ export default function Trivia() {
 	// 		setScore((prev) => prev + 1);
 	// 	}
 	// }
+
+	function handleAnswerSelect(answer: string, isCorrect: boolean) {
+		if (selectedAnswer) return; // Prevent multiple selections
+		setSelectedAnswer(answer);
+
+		if (isCorrect) {
+			setScore((prev) => prev + 1);
+		}
+
+		// Set answered state to true
+		setAnsweredState(true);
+	}
+
+	function postAnswer() {
+		// Shrink the answer buttons away
+		const answers = answersContRef.current?.querySelectorAll(
+			// Select all answer divs (not the response text)
+			`[data-correct="true"], [data-correct="false"]`
+		);
+		if (!answers) return;
+		gsap.to(answers, {
+			scale: 0,
+			duration: 0.3,
+			stagger: 0.1,
+			ease: "power2.in",
+			onComplete: () => {
+				// When the animation is complete, reset these buttons' states
+				// Make original background color
+				const answerButtons = answersContRef.current?.querySelectorAll(
+					"button"
+				);
+				answerButtons?.forEach((btn) => {
+					(btn as HTMLButtonElement).style.backgroundColor = "";
+				});
+				// Make each answer display none
+				answers.forEach((ans) => {
+					(ans as HTMLDivElement).style.display = "none";
+				});
+				
+
+				// Show response text
+				if (responseRef.current) {
+					responseRef.current.style.display = "block";
+					if (selectedAnswer === q.correct) {
+						responseRef.current.textContent = "Correct!";
+					} else {
+						responseRef.current.textContent = `Incorrect. The correct answer was "${q.correct}".`;
+					}
+				}
+			}
+		});
+	}
 
 	useEffect(() => {	
 		// Animate in the new answer buttons
@@ -57,6 +110,7 @@ export default function Trivia() {
 				scale: 1, 
 				duration: 0.3, 
 				stagger: 0.1,
+				delay: 0.2,
 				ease: "power2.out"
 			}
 		);
@@ -108,6 +162,13 @@ export default function Trivia() {
 						duration: 0.4,
 					});
 				}
+
+				// TODO: Add a little celebratory animation here
+
+				// Wait another moment, then initiate the post-answer sequence
+				setTimeout(() => {
+					postAnswer();
+				}, 700);
 			}, 1400);
 		} else {
 			// Wait a moment, the shade the answer the user picked in red
@@ -133,6 +194,11 @@ export default function Trivia() {
 							duration: 0.4,
 						});
 					}
+
+					// Wait another moment, then initiate the post-answer sequence
+					setTimeout(() => {
+						postAnswer();
+					}, 700);
 				}, 700);
 			}, 1400);
 		}
@@ -163,17 +229,7 @@ export default function Trivia() {
 		// }
 	}, [selectedAnswer]);
 
-	function handleAnswerSelect(answer: string, isCorrect: boolean) {
-		if (selectedAnswer) return; // Prevent multiple selections
-		setSelectedAnswer(answer);
-
-		if (isCorrect) {
-			setScore((prev) => prev + 1);
-		}
-
-		// Set answered state to true
-		setAnsweredState(true);
-	}
+	
 
 
 	
@@ -303,6 +359,8 @@ export default function Trivia() {
 					);
 					
 				})}
+
+				<p className={ styles.response } ref={ responseRef }>ajfklqdjek</p>
 				{/* <Answer
 				>4.4 metres</Answer>
 				<Answer

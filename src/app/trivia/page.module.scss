@@ -49,6 +49,13 @@
 				width: 100%;
 				transform: scale(0);
 			}
+
+			.response {
+				// position: absolute;
+				width: 100%;
+				text-align: center;
+				display: none;
+			}
 		}
 	}
 }
