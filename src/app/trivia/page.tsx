@@ -3,7 +3,8 @@
 // Dependencies
 import { useRef, useState, useEffect, use } from "react";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { gsap } from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 
 // Importing styles
 import styles from "./page.module.scss";
@@ -13,13 +14,19 @@ import Image from "next/image";
 import Answer from "@/components/trivia/Answer";
 import * as Button from "@/components/Button";
 
+
+// Registering GSAP
+gsap.registerPlugin(TextPlugin);
+
+
+
 const questions = [
 	{
 		questionName: "Length",
 		question: "What’s the total length of the car, from the very front to the very back?",
-		answers: ["4.4 metres", "4.5 metres", "4.6 metres"],
-		answerSubtext: ["2% shorter than average", "Average length", "2% longer than average"],
-		correct: "4.4 metres",
+		answers: ["2% shorter than average", "Exactly average", "2% longer than average"],
+		answerSubtext: ["4.5 metres", "4.6 metres", "4.7 metres"],
+		correct: 1,
 	},
 	{
 		questionName: "Wheelbase",
@@ -45,6 +52,8 @@ export default function Trivia() {
 
 	const answersContRef = useRef<HTMLDivElement>(null);
 	const questionContRef = useRef<HTMLDivElement>(null);
+	const questionTitleRef = useRef<HTMLHeadingElement>(null);
+	const questionParagraphRef = useRef<HTMLParagraphElement>(null);
 	// const responseRef = useRef<HTMLParagraphElement>(null);
 	//const nextButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -176,45 +185,46 @@ export default function Trivia() {
 		if (!questionNameHeading) return;
 
 		questionNameHeading.textContent = "";
-		let charIndexName = 0;
-		const typingIntervalName = setInterval(() => {
-			if (charIndexName < qNameText.length) {
-				questionNameHeading.textContent += qNameText.charAt(charIndexName);
-				charIndexName++;
-			} else {
-				clearInterval(typingIntervalName);
 
-				// Set a slight delay before starting to type the question text
+		gsap.to(questionNameHeading, {
+			duration: qNameText.length * 0.02,
+			text: qNameText, 
+			ease: "none", 
+			onComplete: () => {
+				// After finishing typing the question name, animate in the question text
 				setTimeout(() => {
 					typeInQuestionText();
 				}, 200);
 			}
-		}, 30); // Adjust typing speed here (milliseconds per character)
+		});
 	}
 	
 	function typeInQuestionText() {
 		// Type in the question text letter by letter
 		const questionText = q.question;
-		const questionParagraph = questionContRef.current?.querySelector("p");
+		const questionParagraph = questionParagraphRef.current;
 		if (!questionParagraph) return;
 
 		questionParagraph.textContent = "";
-		let charIndex = 0;
-		const typingInterval = setInterval(() => {
-			if (charIndex < questionText.length) {
-				questionParagraph.textContent += questionText.charAt(charIndex);
-				charIndex++;
-			} else {
-				clearInterval(typingInterval);
-
+		
+		// This function is used to type out the new word
+		// Using gsap.to() to animate the text change
+		gsap.to(questionParagraph, {
+			duration: questionText.length * 0.012,
+			text: questionText, 
+			ease: "none", 
+			onComplete: () => {
 				// After finishing typing the question, animate in the answers
 				setTimeout(() => {
 					animateInAnswers();
 				}, 200);
 			}
-		}, 20); // Adjust typing speed here (milliseconds per character)
+		});
 	}
-	
+	//get a random integer between 14 and 22 inclusive
+	function getRandomInt(min: number, max: number) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
 
 	function animateInAnswers() {
 		// Animate in the new answer buttons
@@ -226,9 +236,9 @@ export default function Trivia() {
 			{ 
 				scale: 1, 
 				duration: 0.3, 
-				stagger: 0.1,
+				stagger: 0.15,
 				delay: 0.2,
-				ease: "power2.out",
+				ease: "back.out(1.1)",
 				onComplete: () => {
 					// Allow further animations after this one is complete
 					setIsAnimating(false);
@@ -254,7 +264,7 @@ export default function Trivia() {
 			gsap.to(incorrectAnswers, {
 				scale: 0.95,
 				duration: 0.5,
-				ease: "power2.inOut",
+				ease: "power1.inOut",
 			});
 		}
 
@@ -266,12 +276,12 @@ export default function Trivia() {
 			gsap.to(incorrectAnswersButtons, {
 				backgroundColor: "#c4c7c9",
 				duration: 0.5,
-				ease: "power2.inOut",
+				ease: "power1.inOut",
 			});
 		}
 
 		// Depending on whether the answer is right or not, the animation will differ slightly here
-		if (selectedAnswer === q.correct) {
+		if (selectedAnswer === q.answers[q.correct as number]) {
 			// Wait a moment, then shade the correct answer in green
 			setTimeout(() => {
 				const correctAnswer = answersContRef.current?.querySelector(
@@ -280,7 +290,7 @@ export default function Trivia() {
 				if (correctAnswer) {
 					gsap.to(correctAnswer, {
 						backgroundColor: "#22c55e",
-						duration: 0.4,
+						duration: 0.5,
 					});
 				}
 
@@ -289,7 +299,7 @@ export default function Trivia() {
 				// Wait another moment, then initiate the post-answer sequence
 				setTimeout(() => {
 					postAnswer();
-				}, 700);
+				}, 1000);
 			}, 1400);
 		} else {
 			// Wait a moment, the shade the answer the user picked in red
@@ -475,14 +485,14 @@ export default function Trivia() {
 
 		<div className={ styles.questionAndAnswersCont }>
 			<div className={ styles.questionCont } ref={ questionContRef }>
-				<h4>Question {currentQuestion + 1} of 10</h4>
-				<h2></h2>
-				<p></p>
+				<h4>Question {currentQuestion + 1} of {questions.length}</h4>
+				<h2 ref={ questionTitleRef }></h2>
+				<p ref={ questionParagraphRef }></p>
 				{/* <p>What’s the total length of the car, from the very front to the very back?</p> */}
 			</div>
 			<div className={ styles.answersCont } ref={ answersContRef }>
 				{q.answers.map((ans) => {
-					const isCorrect = ans === q.correct;
+					const isCorrect = q.answers.indexOf(ans) === q.correct;
 					const isSelected = ans === selectedAnswer;
 					const answered = answeredState;
 					const answerSubtext = q.answerSubtext ? q.answerSubtext[q.answers.indexOf(ans)] : null;

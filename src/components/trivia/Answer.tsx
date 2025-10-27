@@ -10,7 +10,7 @@ interface AnswerProps {
 	isCorrect?: boolean;
 	isSelected?: boolean;
 	answered?: boolean;
-	subtext?: string;
+	subtext?: string | null;
 	onClick?: () => void;
 	ref?: React.RefObject<HTMLButtonElement | null>;
 }
