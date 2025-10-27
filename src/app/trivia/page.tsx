@@ -32,13 +32,13 @@ const questions = [
 		questionName: "Wheelbase",
 		question: "What’s the distance between the centres of the wheels?",
 		answers: ["2.6 metres", "2.7 metres", "2.8 metres"],
-		correct: "2.7 metres",
+		correct: 1,
 	},
 	{
 		questionName: "Wheel size",
 		question: "What’s the radius of the wheels (for the base model)?",
 		answers: ["17 inches", "18 inches", "19 inches"],
-		correct: "17 inches",
+		correct: 0,
 	},
 ];
 
@@ -54,6 +54,7 @@ export default function Trivia() {
 	const questionContRef = useRef<HTMLDivElement>(null);
 	const questionTitleRef = useRef<HTMLHeadingElement>(null);
 	const questionParagraphRef = useRef<HTMLParagraphElement>(null);
+	const scoreRef = useRef<HTMLSpanElement>(null);
 	// const responseRef = useRef<HTMLParagraphElement>(null);
 	//const nextButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -69,10 +70,23 @@ export default function Trivia() {
 	function handleAnswerSelect(answer: string, isCorrect: boolean) {
 		if (selectedAnswer) return; // Prevent multiple selections
 		setSelectedAnswer(answer);
+		
+		if (isCorrect) {
+			setScore((prev) => prev + 1);
+		}
 
 		setTimeout(() => {
-			if (isCorrect) {
-				setScore((prev) => prev + 1);
+			// Update the score display
+			// Use GSAP to animate the score change
+			if (scoreRef.current) {
+				const newScore = Math.round(((score + (isCorrect ? 1 : 0)) / questions.length) * 100) || 0;
+				gsap.to(scoreRef.current, {
+					duration: 0.5,
+					innerText: `${newScore}`,
+					snap: {
+						innerText: 1
+					}
+				});
 			}
 		}, 1600);
 
@@ -473,10 +487,7 @@ export default function Trivia() {
 	<div className={ styles.triviaCont }>
 		<header>
 			<Button.Small className={ styles.close }>x</Button.Small>
-			<Button.Small className={ styles.score }><p>Score: <span className={ styles.value }><b>{ 
-			// Get a percentage score rounded to the nearest whole number, should be out of the total number of questions in the quiz
-			(Math.round((score / questions.length) * 100) || 0)
-			}%</b></span></p></Button.Small>
+			<Button.Small className={ styles.score }><p>Score: <b><span ref={ scoreRef }>0</span>%</b></p></Button.Small>
 		</header>
 
 		<div className={ styles.imageCont }>
