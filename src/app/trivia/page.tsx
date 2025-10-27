@@ -95,6 +95,49 @@ export default function Trivia() {
 			});
 		}
 
+		// Depending on whether the answer is right or not, the animation will differ slightly here
+		if (selectedAnswer === q.correct) {
+			// Wait a moment, then shade the correct answer in green
+			setTimeout(() => {
+				const correctAnswer = answersContRef.current?.querySelector(
+					`[data-correct="true"] button`
+				);
+				if (correctAnswer) {
+					gsap.to(correctAnswer, {
+						backgroundColor: "#22c55e",
+						duration: 0.4,
+					});
+				}
+			}, 1400);
+		} else {
+			// Wait a moment, the shade the answer the user picked in red
+			setTimeout(() => {
+				const correctAnswer = answersContRef.current?.querySelector(
+					`[data-selected="true"] button`
+				);
+				if (correctAnswer) {
+					gsap.to(correctAnswer, {
+						backgroundColor: "#ff505b",
+						duration: 0.4,
+					});
+				}
+
+				// Wait another moment, then shade the correct answer in green
+				setTimeout(() => {
+					const correctAnswer = answersContRef.current?.querySelector(
+						`[data-correct="true"] button`
+					);
+					if (correctAnswer) {
+						gsap.to(correctAnswer, {
+							backgroundColor: "#22c55e",
+							duration: 0.4,
+						});
+					}
+				}, 700);
+			}, 1400);
+		}
+
+
 		// // At the same time, change all the buttons of the answers to grey
 		// const incorrectAnswersButtons = answersContRef.current?.querySelectorAll(
 		// 	`div button`
