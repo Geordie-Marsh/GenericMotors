@@ -1,4 +1,23 @@
-
+.selected {
+	.button {
+		background-color: #8b8b8b;
+	}
+}
+.correct {
+	.button {
+		background-color: #18f209;
+	}
+}
+.selected.correct {
+	.button {
+		background-color: #0b8404;
+	}
+}
+.selected:not(.correct) {
+	.button {
+		background-color: #f21818;
+	}
+}
 
 .button {
 	width: 100%;

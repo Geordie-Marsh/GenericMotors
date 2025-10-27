@@ -4,12 +4,14 @@
 @use "@styles/globals/mixins" as mx;
 
 .triviaCont {
-	@include mx.screen-width;
+	width: min(600px, 100%);
+	margin: 0 auto;
 	@include mx.flex-vertical-list;
 
 	height: 100vh;
 
-	padding: 4 * spacing.$unit 2 * spacing.$unit;
+	padding: 2 * spacing.$unit;
+	padding-bottom: 4 * spacing.$unit;
 
 
 	header {
@@ -30,13 +32,18 @@
 		.questionCont {
 			@include mx.flex-vertical-list;
 			@include mx.gap(xs);
+			
+			min-height: 124px;
+
+			justify-content: start;
 		}
 		
 		.answersCont {
 			@include mx.flex-vertical-list;
-			@include mx.gap(s);
-			
+			// @include mx.gap(s);
+
 			width: 100%;
+			min-height: 208px;
 		
 			.answer {
 				width: 100%;
