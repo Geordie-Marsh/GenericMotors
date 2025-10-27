@@ -24,20 +24,22 @@ const questions = [
 	{
 		questionName: "Length",
 		question: "What’s the total length of the car, from the very front to the very back?",
-		answers: ["2% shorter than average", "Exactly average", "2% longer than average"],
+		answers: ["2% shorter than average", "Almost exactly average", "2% longer than average"],
 		answerSubtext: ["4.5 metres", "4.6 metres", "4.7 metres"],
 		correct: 1,
 	},
 	{
 		questionName: "Wheelbase",
 		question: "What’s the distance between the centres of the wheels?",
-		answers: ["2.6 metres", "2.7 metres", "2.8 metres"],
-		correct: 1,
+		answers: ["2% shorter than average", "Almost exactly average", "2% longer than average"],
+		answerSubtext: ["2.7 metres", "2.8 metres", "2.9 metres"],
+		correct: 0,
 	},
 	{
 		questionName: "Wheel size",
 		question: "What’s the radius of the wheels (for the base model)?",
-		answers: ["17 inches", "18 inches", "19 inches"],
+		answers: ["Used by 57% of models", "Used by 27% of models", "Used by 16% of models"],
+		answerSubtext: ["17 inches", "18 inches", "19 inches"],
 		correct: 0,
 	},
 ];
