@@ -1,24 +1,48 @@
-.selected {
-	.button {
-		background-color: #8b8b8b;
-	}
-}
-.correct {
-	.button {
-		background-color: #18f209;
-	}
-}
-.selected.correct {
-	.button {
-		background-color: #0b8404;
-	}
-}
-.selected:not(.correct) {
-	.button {
-		background-color: #f21818;
-	}
-}
+// .selected {
+// 	.button {
+// 		background-color: #8b8b8b;
+// 	}
+// }
+// .correct {
+// 	.button {
+// 		background-color: #18f209;
+// 	}
+// }
+// .selected.correct {
+// 	.button {
+// 		background-color: #0b8404;
+// 	}
+// }
+// .selected:not(.correct) {
+// 	.button {
+// 		background-color: #f21818;
+// 	}
+// }
 
-.button {
+.answer {
+
 	width: 100%;
+	
+	button {
+		width: 100%;
+		transition-duration: 0.3s;
+	}
+
+	&:hover[data-answered="false"] button {
+		// transition: background-color 0.3s ease;
+		// background-color: #e0e0e0;
+		// opacity: 0.5;
+		filter: brightness(0.9);
+	}
+
+	&:active[data-answered="false"] button {
+		// transition: background-color 0.1s ease;
+		// background-color: #c8c8c8;
+		transform: scale(0.95);
+		filter: brightness(0.8);
+	}
+
+	&:hover[data-answered="true"] button {
+		cursor: default;
+	}
 }
