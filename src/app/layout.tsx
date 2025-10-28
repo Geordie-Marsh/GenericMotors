@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "@styles/globals.scss";
 
+import { Analytics } from "@vercel/analytics/next"
+
 
 export const metadata: Metadata = {
   title: "Generic Motors | Suite of games",
@@ -16,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+		<Analytics />
       </body>
     </html>
   );
