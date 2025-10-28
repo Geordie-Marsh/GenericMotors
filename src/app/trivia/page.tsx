@@ -2,7 +2,6 @@
 
 // Dependencies
 import { useRef, useState, useEffect, use } from "react";
-import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 
@@ -16,6 +15,11 @@ import * as Button from "@/components/Button";
 
 // Importing icons
 import iconClose from "@/assets/icons/close.svg";
+
+// Importing images
+import trivia01 from "@/assets/images/trivia/length001.webp";
+console.log(trivia01);
+
 
 
 // Registering GSAP
@@ -518,7 +522,12 @@ export default function Trivia() {
 		</header>
 
 		<div className={ styles.imageCont }>
-
+			<Image 
+				src={ trivia01 }
+				alt={ `Trivia question ${ currentQuestion + 1 } image` } 
+				fill 
+				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+			/>
 		</div>
 
 		<div className={ styles.questionAndAnswersCont }>

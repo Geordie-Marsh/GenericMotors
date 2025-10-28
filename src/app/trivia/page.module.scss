@@ -11,7 +11,7 @@
 	height: 100vh;
 
 	padding: 2 * spacing.$unit;
-	padding-bottom: 4 * spacing.$unit;
+	padding-bottom: 3 * spacing.$unit;
 
 
 	header {
@@ -26,6 +26,19 @@
 			img {
 				margin: auto;
 			}
+		}
+	}
+
+
+	.imageCont {
+		height: 100%;
+		width: 100%;
+		position: relative;
+		margin: (1 * spacing.$unit) 0;
+
+		img {
+			// Make the image fit within the container
+			object-fit: contain;
 		}
 	}
 	
