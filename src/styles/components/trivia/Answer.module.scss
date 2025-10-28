@@ -35,12 +35,13 @@
 		justify-content: center;
 	}
 
-	&:hover[data-answered="false"] button {
-		// transition: background-color 0.3s ease;
-		// background-color: #e0e0e0;
-		// opacity: 0.5;
-		filter: brightness(0.9);
-		transform: scale(0.99);
+	// The hover state should not apply if the user is on a mobile device
+	@media (hover: hover) and (pointer: fine) {
+		&:hover[data-answered="false"] button {
+			// Making the hover effect not happen on mobile devices
+			filter: brightness(0.9);
+			transform: scale(0.99);
+		}
 	}
 
 	&:active[data-answered="false"] button {
