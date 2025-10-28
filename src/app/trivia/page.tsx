@@ -71,6 +71,7 @@ export default function Trivia() {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 
+	const introContRef = useRef<HTMLDivElement>(null);
 	const answersContRef = useRef<HTMLDivElement>(null);
 	const questionContRef = useRef<HTMLDivElement>(null);
 	const questionTitleRef = useRef<HTMLHeadingElement>(null);
@@ -360,11 +361,6 @@ export default function Trivia() {
 
 	
 
-	// Detect when the page first loads to set up the first question
-	useEffect(() => {
-		newQuestion();
-	}, []);
-
 	// Detect when the current question changes to set up the new question
 	useEffect(() => {
 		// Prevent running on initial render
@@ -374,8 +370,25 @@ export default function Trivia() {
 
 
 
+	function beginTrivia() {
+		// Animate out the intro container
+		const introCont = introContRef.current;
+		if (introCont) {
+			gsap.to(introCont, {
+				opacity: 0,
+				duration: 0.5,
+				onComplete: () => {
+					introCont.remove();
 
-	
+					// Start the trivia
+					setTimeout(() => {
+						newQuestion();
+					}, 300);
+				}
+			});
+		}
+	}
+
 
 
 
@@ -443,6 +456,21 @@ export default function Trivia() {
 				>4.5 metres</Answer>
 				<Answer>4.6 metres</Answer> */}
 			</div>
+		</div>
+
+
+
+		<div className={ styles.introCont } ref={ introContRef }>
+			<h2>Trivia</h2>
+			<p>Test your knowledge about our most popular model, <b>the Toyota RAV4</b>, by answering a series of questions!</p>
+			<Button.Large className={ styles.beginButton } onClick={ () => {
+				// Start the trivia with the function
+				setTimeout(() => {
+					beginTrivia();
+				}, 300);
+			} }>
+				<h3>Begin!</h3>
+			</Button.Large>
 		</div>
 	</div>
   );
