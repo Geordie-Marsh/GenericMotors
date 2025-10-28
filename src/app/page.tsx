@@ -27,7 +27,7 @@ export default function Home() {
 			/>
 			{/* <h3>One of a kind</h3> */}
 		</div>
-		<p className={ styles.desc }>Comparing cars is difficult; there&apos;s so many differences between makes and models. To help we&apos;ve designed a suite of games to help you compare all your options.</p>
+		<p className={ styles.desc }>Comparing cars is difficult; the list of differences between all the makes and models is endless.<br /><br />To help you out, we&apos;ve designed a suite of games that&apos;ll let you compare all your options.</p>
 		<div className={ styles.gamesCont }>
 			<GameLink 
 				href="/trivia" 
