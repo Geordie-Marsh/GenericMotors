@@ -8,7 +8,8 @@
 	margin: 0 auto;
 	@include mx.flex-vertical-list;
 
-	height: 100vh;
+	height: 100vh; // Support for older browsers
+	height: 100dvh; // Full viewport height on modern browsers
 
 	padding: 2 * spacing.$unit;
 	padding-bottom: 3 * spacing.$unit;
