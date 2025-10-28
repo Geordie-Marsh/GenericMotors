@@ -76,11 +76,12 @@ export default function Trivia() {
 		if (selectedAnswer) return; // Prevent multiple selections
 		setSelectedAnswer(answer);
 		
-		if (isCorrect) {
-			setScore((prev) => prev + 1);
-		}
-
+		
 		setTimeout(() => {
+			if (isCorrect) {
+				setScore((prev) => prev + 1);
+			}
+
 			// Update the score display
 			// Use GSAP to animate the score change
 			if (scoreRef.current) {
@@ -163,9 +164,19 @@ export default function Trivia() {
 					if (questionNameElem) questionNameElem.textContent = "";
 					if (questionTextElem) questionTextElem.textContent = "";
 				}
-				// Reset opacity and position of animated elements for next question, except the first h4 (question number)
-				animateOutElements.slice(1).forEach((el) => {
-					(el as HTMLElement).style.opacity = "1";
+				// Reset opacity and position of elements 2 and 3 (question title and paragraph)
+				if (questionTitleRef.current) {
+					questionTitleRef.current.style.opacity = "1";
+					questionTitleRef.current.style.transform = "translateY(0)";
+				}
+				if (questionParagraphRef.current) {
+					questionParagraphRef.current.style.opacity = "1";
+					questionParagraphRef.current.style.transform = "translateY(0)";
+				}
+				// Reset background colors of answer buttons
+				const answerButtons = answersContRef.current?.querySelectorAll("button");
+				answerButtons?.forEach((btn) => {
+					(btn as HTMLButtonElement).style.backgroundColor = "";
 				});
 			}
 		});
@@ -251,9 +262,13 @@ export default function Trivia() {
 		if (!answers) return;
 		gsap.fromTo(
 			answers,
-			{ scale: 0 },
+			{ 
+				scale: 0,
+				opacity: 1,
+			},
 			{ 
 				scale: 1, 
+				opacity: 1,
 				duration: 0.3, 
 				stagger: 0.15,
 				delay: 0.2,
