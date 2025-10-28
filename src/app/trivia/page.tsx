@@ -17,8 +17,10 @@ import * as Button from "@/components/Button";
 import iconClose from "@/assets/icons/close.svg";
 
 // Importing images
-import trivia01 from "@/assets/images/trivia/length001.webp";
-console.log(trivia01);
+import triviaLength from "@/assets/images/trivia/length001.webp";
+import triviaWheelbase from "@/assets/images/trivia/wheelbase001.webp";
+import triviaWheelSize from "@/assets/images/trivia/wheelsize002.webp";
+
 
 
 
@@ -34,6 +36,7 @@ const questions = [
 		answers: ["2% shorter than average", "Almost exactly average", "2% longer than average"],
 		answerSubtext: ["4.5 metres", "4.6 metres", "4.7 metres"],
 		correct: 1,
+		image: triviaLength,
 	},
 	{
 		questionName: "Wheelbase",
@@ -41,6 +44,7 @@ const questions = [
 		answers: ["2% shorter than average", "Almost exactly average", "2% longer than average"],
 		answerSubtext: ["2.7 metres", "2.8 metres", "2.9 metres"],
 		correct: 0,
+		image: triviaWheelbase,
 	},
 	{
 		questionName: "Wheel size",
@@ -48,6 +52,7 @@ const questions = [
 		answers: ["Used by 57% of models", "Used by 27% of models", "Used by 16% of models"],
 		answerSubtext: ["17 inches", "18 inches", "19 inches"],
 		correct: 0,
+		image: triviaWheelSize,
 	},
 ];
 
@@ -64,6 +69,7 @@ export default function Trivia() {
 	const questionTitleRef = useRef<HTMLHeadingElement>(null);
 	const questionParagraphRef = useRef<HTMLParagraphElement>(null);
 	const scoreRef = useRef<HTMLSpanElement>(null);
+	const imageRef = useRef<HTMLImageElement>(null);
 	// const responseRef = useRef<HTMLParagraphElement>(null);
 	//const nextButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -145,8 +151,9 @@ export default function Trivia() {
 
 		// Animate the question text elements and the answers out
 		// Get all the elements to animate out (in a list so we can stagger them all)
-		// We all the elements inside both the question container and the answers container
+		// We want all the elements inside both the question container and the answers container and the image
 		const animateOutElements = [
+			imageRef.current,
 			...Array.from(questionContRef.current?.children || []),
 			...Array.from(answersContRef.current?.children || [])
 		];
@@ -283,6 +290,15 @@ export default function Trivia() {
 				}
 			}
 		);
+
+		// Also, fade in the image
+		setTimeout(() => {
+			gsap.to(imageRef.current, {
+				opacity: 1,
+				duration: 0.5,
+				ease: "power2.out",
+			});
+		}, 800);
 	}
 
 	useEffect(() => {
@@ -523,10 +539,11 @@ export default function Trivia() {
 
 		<div className={ styles.imageCont }>
 			<Image 
-				src={ trivia01 }
+				src={ q.image ? q.image : triviaLength }
 				alt={ `Trivia question ${ currentQuestion + 1 } image` } 
 				fill 
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+				ref={ imageRef }
 			/>
 		</div>
 
