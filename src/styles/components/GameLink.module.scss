@@ -1,0 +1,25 @@
+// Dependencies
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/mixins" as mx;
+
+.gameLink {
+	background: colours.$white;
+	padding: 1.5 * spacing.$unit 1.5 * spacing.$unit;
+
+	@include mx.flex-vertical-list;
+	@include mx.standard-shadow;
+	@include mx.standard-rounded;
+
+	.imageCont {
+		width: 100%;
+		height: auto;
+		margin-bottom: 1 * spacing.$unit;
+
+		.image {
+			width: 100%;
+			max-width: 512px;
+			height: auto;
+		}
+	}
+}

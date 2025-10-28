@@ -18,11 +18,10 @@
 
 // Defining the text styles
 h1 {
-	//TODO: Rejig this
-	font-size: 10.9375 * spacing.$unit;
+	font-size: 5 * spacing.$unit;
 	font-style: normal;
 	font-weight: 700;
-	line-height: 97.143%;
+	line-height: 104%;
 	text-transform: uppercase;
 }
 

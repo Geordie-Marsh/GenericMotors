@@ -1,0 +1,51 @@
+// Dependencies
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/mixins" as mx;
+
+.page {
+	width: 100%;
+	
+	@include mx.flex-vertical-list;
+	
+	padding: 2 * spacing.$unit;
+	padding-top: 4 * spacing.$unit;
+
+
+	.main {
+		@include mx.flex-vertical-list;
+		@include mx.gap(m);
+		align-items: center;
+
+		.titleCont {
+			@include mx.flex-vertical-list;
+			@include mx.gap(s);
+	
+			margin-bottom: 1 * spacing.$unit;
+	
+			align-items: center;
+			text-align: center;
+	
+	
+			h2 {
+				color: colours.$grey;
+			}
+		}
+
+		.desc {
+			margin-bottom: 2 * spacing.$unit;
+			max-width: 512px;
+			text-align: center;
+		}
+		
+		.gamesCont {
+			max-width: 1024px;
+
+			// Grid layout for the game links, with responsive columns
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			gap: 2 * spacing.$unit;
+		}
+	}
+
+}

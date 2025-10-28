@@ -526,7 +526,10 @@ export default function Trivia() {
   return (
 	<div className={ styles.triviaCont }>
 		<header>
-			<Button.Small className={ styles.close }>
+			<Button.Small className={ styles.close } onClick={ () => {
+				// Close the trivia - go back to home page
+				window.location.href = "/";
+			} }>
 				<Image 
 					src={ iconClose } 
 					alt="Close icon" 
@@ -542,7 +545,7 @@ export default function Trivia() {
 				src={ q.image ? q.image : triviaLength }
 				alt={ `Trivia question ${ currentQuestion + 1 } image` } 
 				fill 
-				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+				sizes="100%"
 				ref={ imageRef }
 			/>
 		</div>
