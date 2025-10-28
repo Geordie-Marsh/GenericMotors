@@ -20,12 +20,20 @@
 		.titleCont {
 			@include mx.flex-vertical-list;
 			@include mx.gap(s);
+
+			width: 100%;
 	
 			margin-bottom: 1 * spacing.$unit;
 	
 			align-items: center;
 			text-align: center;
-	
+
+			
+			.logo {
+				width: 100%;
+				max-width: 32 * spacing.$unit;
+				height: auto;
+			}	
 	
 			h2 {
 				color: colours.$grey;

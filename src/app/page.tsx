@@ -4,10 +4,12 @@
 import styles from "./page.module.scss";
 
 // Importing components
+import Image from "next/image";
 import GameLink from "@/components/GameLink";
 
 // Importing images
 import triviaLength from "@/assets/images/trivia/length001.webp";
+import logoCombHoriz from "@/assets/logo/logo-comb-horiz.svg";
 
 
 
@@ -16,8 +18,14 @@ export default function Home() {
     <div className={ styles.page }>
       <main className={ styles.main }>
 		<div className={ styles.titleCont }>
-			<h1>Generic Motors</h1>
-			<h2>One of a kind</h2>
+			{/* <h1>Generic Motors</h1> */}
+			<Image
+				src={ logoCombHoriz }
+				alt="Generic Motors Logo"
+				className={ styles.logo }
+				priority
+			/>
+			{/* <h3>One of a kind</h3> */}
 		</div>
 		<p className={ styles.desc }>Comparing cars is difficult; there&apos;s so many differences between makes and models. To help we&apos;ve designed a suite of games to help you compare all your options.</p>
 		<div className={ styles.gamesCont }>

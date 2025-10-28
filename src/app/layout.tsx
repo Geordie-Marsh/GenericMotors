@@ -3,7 +3,7 @@ import "@styles/globals.scss";
 
 
 export const metadata: Metadata = {
-  title: "Generic Motors | One of a kind",
+  title: "Generic Motors | Suite of games",
   description: "Your journey to find your dream car starts here. By Geordie Marsh.",
 };
 
