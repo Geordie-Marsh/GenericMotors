@@ -23,7 +23,6 @@ import triviaWheelbase from "@/assets/images/trivia/wheelbase001.webp";
 import triviaWheelSize from "@/assets/images/trivia/wheelsize002.webp";
 import triviaKerbWeight from "@/assets/images/trivia/kerbweight001.webp";
 import triviaBootSpace from "@/assets/images/trivia/bootspace001.webp";
-import { finished } from "stream";
 
 
 
@@ -119,12 +118,12 @@ export default function Trivia() {
 		if (selectedAnswer) return; // Prevent multiple selections
 		setSelectedAnswer(answer);
 		
+		// If the answer is correct, increment the score
+		if (isCorrect) {
+			setScore((prev) => prev + 1);
+		}
 		
 		setTimeout(() => {
-			if (isCorrect) {
-				setScore((prev) => prev + 1);
-			}
-
 			// Update the score display
 			// Use GSAP to animate the score change
 			if (scoreRef.current) {
