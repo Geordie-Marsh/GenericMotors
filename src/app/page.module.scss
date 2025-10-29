@@ -42,8 +42,12 @@
 
 		.desc {
 			margin-bottom: 2 * spacing.$unit;
-			max-width: 512px;
-			text-align: center;
+			max-width: 400px;
+			
+			// When not on a mobile device, center the text
+			@media (min-width: 440px) {
+				text-align: center;
+			}
 		}
 		
 		.gamesCont {

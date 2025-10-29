@@ -4,6 +4,7 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { CustomEase } from "gsap/CustomEase";
 
 // Importing styles
 import styles from "./page.module.scss";
@@ -20,12 +21,16 @@ import iconClose from "@/assets/icons/close.svg";
 import triviaLength from "@/assets/images/trivia/length001.webp";
 import triviaWheelbase from "@/assets/images/trivia/wheelbase001.webp";
 import triviaWheelSize from "@/assets/images/trivia/wheelsize002.webp";
+import triviaKerbWeight from "@/assets/images/trivia/kerbweight001.webp";
+import triviaBootSpace from "@/assets/images/trivia/bootspace001.webp";
+import { finished } from "stream";
 
 
 
 
 // Registering GSAP
 gsap.registerPlugin(TextPlugin);
+gsap.registerPlugin(CustomEase);
 
 
 
@@ -55,6 +60,22 @@ const questions = [
 		correct: 0,
 		image: triviaWheelSize,
 	},
+	{
+		questionName: "Kerb weight",
+		question: "What’s the total weight of the vehicle without anything or anyone in it?",
+		answers: ["3% lighter than average", "Almost exactly average", "3% heavier than average"],
+		answerSubtext: ["1.65 tonnes", "1.70 tonnes", "1.75 tonnes"],
+		correct: 0,
+		image: triviaKerbWeight,
+	},
+	{
+		questionName: "Boot space",
+		question: "How much space is there in the boot (with the back seats up)?",
+		answers: ["Fits ~ 6 medium suitcases", "Fits ~ 7 medium suitcases", "Fits ~ 8 medium suitcases"],
+		answerSubtext: ["500 litres", "540 litres", "580 litres"],
+		correct: 1,
+		image: triviaBootSpace,
+	}
 ];
 
 
@@ -78,6 +99,15 @@ export default function Trivia() {
 	const questionParagraphRef = useRef<HTMLParagraphElement>(null);
 	const scoreRef = useRef<HTMLSpanElement>(null);
 	const imageRef = useRef<HTMLImageElement>(null);
+
+	const finishedContRef = useRef<HTMLDivElement>(null);
+	const finishedPreScoreRef = useRef<HTMLHeadingElement>(null);
+	const finishedScoreRef = useRef<HTMLHeadingElement>(null);
+	const finishedMessageInitialRef = useRef<HTMLParagraphElement>(null);
+	const finishedMessageTitleRef = useRef<HTMLParagraphElement>(null);
+	const finishedMessageDescRef = useRef<HTMLParagraphElement>(null);
+	const finishedMessageRef = useRef<HTMLParagraphElement>(null);
+	const finishedButtonsContRef = useRef<HTMLDivElement>(null);
 
 	const q = questions[currentQuestion];
 
@@ -113,6 +143,205 @@ export default function Trivia() {
 		setAnsweredState(true);
 	}
 
+
+
+	function finishedTrivia() {
+		showFinishedScreen();
+
+		// Get the final score
+		const finalScore = Math.round((score / questions.length) * 100) || 0;
+		// const finalScore = 20; // Hardcoded to 78% for demo purposes
+
+		function showFinishedScreen() {
+			const finishedCont = finishedContRef.current;
+			
+			// Make it visible
+			finishedCont!.style.visibility = "visible";
+			
+			// Animate it in
+			gsap.fromTo(
+				finishedCont,
+				{ 
+					opacity: 0 
+				},
+				{ 
+					opacity: 1, 
+					duration: 0.5,
+					onComplete: () => {
+						setTimeout(() => {
+							animateInPreScore();
+						}, 200);
+					}
+				}
+			);
+		}
+
+
+		function animateInPreScore() {
+			const finishedPreScore = finishedPreScoreRef.current;
+
+			// Animate it in
+			gsap.fromTo(
+				finishedPreScore,
+				{
+					opacity: 0
+				},
+				{
+					opacity: 1,
+					duration: 0.3,
+					onComplete: () => {
+						setTimeout(() => {
+							animateInScore();
+						}, 400);
+					}
+				}
+			)
+		}
+		
+		function animateInScore() {
+			const finishedScore = finishedScoreRef.current;
+
+			// Animate it in
+			gsap.fromTo(
+				finishedScore,
+				{
+					opacity: 0
+				},
+				{
+					opacity: 1,
+					duration: 0.3,
+					onComplete: () => {
+						setTimeout(() => {
+							animateScoreCountUp();
+						}, 100);
+					}
+				}
+			)
+		}
+		
+		
+		function animateScoreCountUp() {
+			const finishedScore = finishedScoreRef.current;
+
+			// Animation parameters
+			const duration = 2.3;
+
+			// Animate it in (scale)
+			gsap.to(
+				finishedScore,
+				{
+					scale: 1,
+					duration: duration,
+					//ease: "back.out(6)"
+					// ease: CustomEase.create("custom", "cubic-bezier(.28,-0.29,.55,1.88)")
+					ease: CustomEase.create("custom", "M0,0 C0.087,0 0.18,-0.16 0.503,-0.16 0.829,-0.16 0.81,1.238 0.83,1.602 0.858,1.284 0.922,1 1,1 "),
+				}
+			)
+		
+			// Animate it in (count up)
+			gsap.to(
+				finishedScore,
+				{
+					innerText: `${finalScore}%`,
+					duration: duration,
+					ease: CustomEase.create("custom", "M0,0 C0.03,0 0.136,0 0.164,0 0.353,0 0.46,0.05 0.527,0.127 0.6,0.21 0.686,0.362 0.727,0.501 0.769,0.646 0.826,1.001 0.826,1.001 0.826,1.001 0.884,1 1,1 "),
+					snap: {
+						innerText: 1
+					}
+				}
+			);
+
+			// Change the colour depending on the score
+			let scoreColor = "#ff505b"; // Red by default
+			if (finalScore >= 75) {
+				scoreColor = "#22c55e"; // Green for 80% and above
+			} else if (finalScore >= 50) {
+				scoreColor = "#fbbf24"; // Yellow for 50% and above
+			}
+
+			setTimeout(() => {
+				finishedScore!.style.color = scoreColor;
+			}, duration * 1000 * 0.829);
+
+			// After the count up is done, animate in the messages
+			setTimeout(() => {
+				animateInMessages();
+			}, duration * 1000 + 300);
+		}
+
+
+		function animateInMessages() {
+			const finishedMessageInitial = finishedMessageInitialRef.current;
+			const finishedMessageTitle = finishedMessageTitleRef.current;
+			const finishedMessageDesc = finishedMessageDescRef.current;
+
+			const finalMessage =
+				finalScore >= 75 ? "Wow... you must be lucky!" 
+				: finalScore >= 50 ? "Not bad... you did better than most!"
+				: "Well... at least you tried!";
+
+
+			// Type in the initial message letter by letter
+			gsap.to(finishedMessageInitial, {
+				duration: finalMessage.length * 0.03,
+				text: finalMessage,
+				ease: "power1.in"
+			});	
+
+			// Fade in the "Did you know?" title after a short delay
+			gsap.to(finishedMessageTitle, {
+				opacity: 1,
+				duration: 0.3,
+				delay: finalMessage.length * 0.03 + 0.5,
+			});
+
+			// Fade in the description after another short delay
+			gsap.to(finishedMessageDesc, {
+				opacity: 1,
+				duration: 0.3,
+				delay: finalMessage.length * 0.03 + 0.8,
+				onComplete: () => {
+					// After all messages are done, show the buttons
+					setTimeout(() => {
+						animateInButtons();
+					}, 600);
+				}
+			});
+		}
+
+
+		function animateInButtons() {
+			const finishedMessage = finishedMessageRef.current;
+			const finishedButtonsCont = finishedButtonsContRef.current;
+
+			// Animate in the message
+			gsap.to(finishedMessage,
+				{
+					opacity: 1,
+					duration: 0.3,
+			});
+
+			// Animate in the buttons 
+			// Get the buttons inside the buttons container
+			const buttons = finishedButtonsCont!.children;
+			gsap.fromTo(buttons, {
+				opacity: 0,
+				scale: 0,
+			}, {
+				scale: 1, 
+				opacity: 1,
+				duration: 0.3, 
+				stagger: 0.2,
+				delay: 0.8,
+				ease: "back.out(1.1)",
+			});
+		}
+	}
+
+
+
+
+
 	function postAnswer() {
 		// Animate the question text elements and the answers out
 		// Get all the elements to animate out (in a list so we can stagger them all)
@@ -131,7 +360,6 @@ export default function Trivia() {
 				// When the animation is complete, move to the next question
 				setAnsweredState(false);
 				setSelectedAnswer(null);
-				setCurrentQuestion((prev) => (prev + 1) % questions.length);
 				
 				// Reset the question text and the question name text to be blank
 				if (questionContRef.current) {
@@ -154,6 +382,16 @@ export default function Trivia() {
 				answerButtons?.forEach((btn) => {
 					(btn as HTMLButtonElement).style.backgroundColor = "";
 				});
+
+
+				// If we've reached the end of the questions, show the finished screen
+				if (currentQuestion + 1 >= questions.length) {
+					finishedTrivia();
+					return;
+				}
+
+				// Otherwise, move to the next question
+				setCurrentQuestion((prev) => (prev + 1) % questions.length);
 			}
 		});
 	}
@@ -365,6 +603,7 @@ export default function Trivia() {
 	useEffect(() => {
 		// Prevent running on initial render
 		if (currentQuestion === 0) return;
+
 		newQuestion();
 	}, [currentQuestion]);
 
@@ -387,7 +626,21 @@ export default function Trivia() {
 				}
 			});
 		}
+
+		// Select a random did you know fact for the finished screen
+		const finishedMessageDesc = finishedMessageDescRef.current;
+		if (finishedMessageDesc) {
+			const facts = [
+				"The Toyota RAV4 is average in just about every way you can measure. It's also our best-selling model.",
+				"Almost none of our models differ by more than 10% in anything. We believe this makes choosing a car easier for our customers.",
+			];
+			const randomFact = facts[Math.floor(Math.random() * facts.length)];
+			console.log("Selected random fact:", randomFact);
+			finishedMessageDesc.textContent = randomFact;
+		}
 	}
+
+
 
 
 
@@ -471,6 +724,38 @@ export default function Trivia() {
 			} }>
 				<h3>Begin!</h3>
 			</Button.Large>
+		</div>
+
+
+
+		<div className={ styles.finishedCont } ref={ finishedContRef }>
+			<div className={ styles.finalScoreCont }>
+				<h3 className={ styles.finishedPreScore } ref={ finishedPreScoreRef }>You scored...</h3>
+				<h1 className={ styles.finishedScore } ref={ finishedScoreRef }>0%</h1>
+			</div>
+			<p className={ styles.finalMessageInitial } ref={ finishedMessageInitialRef }></p>
+			<p className={ styles.finalMessage }>
+				<b><span className={ styles.finalMessageTitle } ref={ finishedMessageTitleRef }>Did you know?</span></b>
+				<br />
+				<span className={ styles.finalMessageDesc } ref={ finishedMessageDescRef }></span>
+			</p>
+			<div className={ styles.interactionsCont }>
+				<p className={ styles.message } ref={ finishedMessageRef }>Try your luck again! Or explore our other games.</p>
+				<div className={ styles.buttonsCont } ref={ finishedButtonsContRef }>
+					<Button.Large className={ styles.retryButton } onClick={ () => {
+						// Reset the trivia to try again
+						window.location.reload();
+					} }>
+						<h3>Try again</h3>
+					</Button.Large>
+					<Button.Large className={ styles.homeButton } onClick={ () => {
+						// Go back to home page
+						window.location.href = "/";
+					} }>
+						<h3>More games</h3>
+					</Button.Large>
+				</div>
+			</div>
 		</div>
 	</div>
   );
