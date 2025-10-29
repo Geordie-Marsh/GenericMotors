@@ -23,6 +23,9 @@ import triviaWheelbase from "@/assets/images/trivia/wheelbase001.webp";
 import triviaWheelSize from "@/assets/images/trivia/wheelsize002.webp";
 import triviaKerbWeight from "@/assets/images/trivia/kerbweight001.webp";
 import triviaBootSpace from "@/assets/images/trivia/bootspace001.webp";
+import triviaRange from "@/assets/images/trivia/fueltank001.webp";
+import triviaShadesOfGrey from "@/assets/images/trivia/greys001.webp";
+import triviaPrice from "@/assets/images/trivia/price001.webp";
 
 
 
@@ -74,6 +77,30 @@ const questions = [
 		answerSubtext: ["500 litres", "540 litres", "580 litres"],
 		correct: 1,
 		image: triviaBootSpace,
+	},
+	{
+		questionName: "Range",
+		question: "Roughly how far can you drive this car on a full tank?",
+		answers: ["5% less than average", "Almost exactly average", "5% more than average"],
+		answerSubtext: ["730 km", "770 km", "810 km"],
+		correct: 2,
+		image: triviaRange,
+	},
+	{
+		questionName: "Shades of grey",
+		question: "How many different shades of grey are available for this model?",
+		answers: ["1 less than average", "Average", "1 more than average"],
+		answerSubtext: ["5 shades", "6 shades", "7 shades"],
+		correct: 2,
+		image: triviaShadesOfGrey,
+	},
+	{
+		questionName: "Price",
+		question: "Finally, given all its standout features, how does this car's base price compare to its competitors (non-luxury, medium petrol SUVs)?",
+		answers: ["20% cheaper than average", "Almost exactly average", "20% more expensive than average"],
+		answerSubtext: ["A$32,000", "A$40,000", "A$48,000"],
+		correct: 2,
+		image: triviaPrice,
 	}
 ];
 
