@@ -10,16 +10,17 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   ref?: React.RefObject<HTMLButtonElement | null>;
+  disabled?: boolean;
 }
 
-export function Large({ onClick, children, className, ref }: ButtonProps) {
+export function Large({ onClick, children, className, ref, disabled }: ButtonProps) {
 	return (
-		<button className={`${styles.button} ${styles.large} ${className}`} onClick={ onClick } ref={ref}>{children}</button>
+		<button className={`${styles.button} ${styles.large} ${className}`} onClick={ onClick } ref={ref} disabled={disabled}>{children}</button>
 	);
 }
 
-export function Small({ onClick, children, className, ref }: ButtonProps) {
+export function Small({ onClick, children, className, ref, disabled }: ButtonProps) {
 	return (
-		<button className={`${styles.button} ${styles.small} ${className}`} onClick={ onClick } ref={ref}>{children}</button>
+		<button className={`${styles.button} ${styles.small} ${className}`} onClick={ onClick } ref={ref} disabled={disabled}>{children}</button>
 	);
 }

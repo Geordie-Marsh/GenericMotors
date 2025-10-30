@@ -36,4 +36,15 @@
 		transform: scale(0.95);
 		filter: brightness(0.8);
 	}
+
+	&:disabled {
+		background-color: colours.$light-grey !important;
+		cursor: default;
+		filter: none !important;
+		transform: none !important;
+
+		* {
+			color: colours.$grey !important;
+		}
+	}
 }
