@@ -62,10 +62,11 @@
 
 	.imageCont {
 		height: 100%;
+		min-height: 100px;
 		width: 100%;
 		position: relative;
-		margin-top: (2.5 * spacing.$unit);
-		margin-bottom: (2 * spacing.$unit);
+		margin-top: (1 * spacing.$unit);
+		margin-bottom: (1.5 * spacing.$unit);
 
 		img {
 			// Make the image fit within the container
@@ -130,10 +131,10 @@
 		min-height: fit-content;
 		top: 0;
 		left: 0;
-		padding: 6 * spacing.$unit 2 * spacing.$unit 3 * spacing.$unit;
+		padding: 6 * spacing.$unit 2 * spacing.$unit 4 * spacing.$unit;
 
 		@include mx.flex-vertical-list;
-		@include mx.gap(l);
+		@include mx.gap(m);
 		align-items: center;
 
 		> p {
@@ -188,6 +189,7 @@
 			}
 
 			.buttonsCont {
+				width: 100%;
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 				gap: 1.5 * spacing.$unit;

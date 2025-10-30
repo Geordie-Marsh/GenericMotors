@@ -4,11 +4,11 @@
 @use "@styles/globals/mixins" as mx;
 
 .gameLink {
-	background: colours.$white;
-	padding: 1.5 * spacing.$unit 1.5 * spacing.$unit;
+	// background: colours.$white;
+	padding: 1.5 * spacing.$unit 1.5 * spacing.$unit !important;
 
 	@include mx.flex-vertical-list;
-	@include mx.standard-shadow;
+	// @include mx.standard-shadow;
 	@include mx.standard-rounded;
 
 	.imageCont {

@@ -97,7 +97,7 @@ const questions = [
 	{
 		questionName: "Price",
 		question: "Finally, given all its standout features, how does this car's base price compare to its competitors (non-luxury, medium petrol SUVs)?",
-		answers: ["20% cheaper than average", "Almost exactly average", "20% more expensive than average"],
+		answers: ["20% cheaper than average", "Almost exactly average", "20% dearer than average"],
 		answerSubtext: ["A$32,000", "A$40,000", "A$48,000"],
 		correct: 2,
 		image: triviaPrice,
@@ -687,7 +687,7 @@ export default function Trivia() {
 					height={ 16 }
 				/>
 			</Button.Small>
-			<Button.Small className={ styles.score }><p>Score: <b><span ref={ scoreRef }>0</span>%</b></p></Button.Small>
+			<p>Score: <b><span ref={ scoreRef }>0</span>%</b></p>
 		</header>
 
 		<div className={ styles.imageCont }>
