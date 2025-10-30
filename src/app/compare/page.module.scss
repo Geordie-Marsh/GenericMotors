@@ -1,0 +1,99 @@
+// Dependencies
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/effects";
+@use "@styles/globals/mixins" as mx;
+
+.compareCont {
+	width: 100%;
+
+	@include mx.flex-vertical-list;
+	@include mx.gap(m);
+
+	height: 100vh; // Support for older browsers
+	height: 100dvh; // Full viewport height on modern browsers
+	max-height: 100dvh;
+
+	padding: 2 * spacing.$unit;
+	padding-bottom: 3 * spacing.$unit;
+
+	header {
+		@include mx.flex-horizontal-list;
+		height: fit-content;
+		
+		.close {
+			height: 2 * spacing.$unit;
+			aspect-ratio: 1 / 1;
+			padding: 0.5 * spacing.$unit;
+
+			img {
+				margin: auto;
+			}
+		}
+	}
+
+
+
+	.gameCont {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 100%;
+		@include mx.gap(s);
+		min-height: 0;
+
+		// On larger screens, make it side-by-side
+		@media (min-width: 700px) {
+			grid-template-rows: 1fr;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		
+		.carCont1, .carCont2 {
+			width: 100%;
+			height: 100%;
+			background: colours.$white;
+			box-shadow: inset effects.$box-shadow;
+			@include mx.standard-rounded;
+			padding: 2 * spacing.$unit;
+			padding-top: 2.4 * spacing.$unit;
+
+			min-height: 100px;
+
+			overflow: hidden;
+		}
+		
+		.carImage {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+
+			// transform: translateY(50%);
+		}
+	}
+	
+	
+	
+	.comparisonButtons {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		@include mx.gap(s);
+		justify-content: center;
+		width: 100%;
+		max-width: 600px;
+		margin: auto;
+
+		.same {
+			background: #22c55e; // Green for same
+		}
+		.different {
+			background: #ff505b; // Red for different
+		}
+
+		h3 {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
