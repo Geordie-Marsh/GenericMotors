@@ -10,6 +10,7 @@
 	@include mx.flex-vertical-list;
 	// @include mx.standard-shadow;
 	@include mx.standard-rounded;
+	@include mx.gap(m);
 
 	.imageCont {
 		width: 100%;
@@ -18,7 +19,7 @@
 
 		.image {
 			width: 100%;
-			max-width: 512px;
+			max-width: 480px;
 			height: auto;
 		}
 	}

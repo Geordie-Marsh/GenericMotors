@@ -8,8 +8,9 @@ import Image from "next/image";
 import GameLink from "@/components/GameLink";
 
 // Importing images
-import triviaLength from "@/assets/images/trivia/length001.webp";
 import logoCombHoriz from "@/assets/logo/logo-comb-horiz.svg";
+import pictogramTrivia from "@/assets/images/game-pictograms/pictogram-trivia.webp"
+import pictogramCompare from "@/assets/images/game-pictograms/pictogram-compare.webp"
 
 
 
@@ -33,7 +34,13 @@ export default function Home() {
 				href="/trivia" 
 				title="Trivia Challenge"
 				description="Test your knowledge of car facts and figures"
-				imgSource={ triviaLength }
+				imgSource={ pictogramTrivia }
+			/>
+			<GameLink 
+				href="/compare" 
+				title="Same / Different"
+				description="How well can you tell our models apart?"
+				imgSource={ pictogramCompare }
 			/>
 		</div>
       </main>
