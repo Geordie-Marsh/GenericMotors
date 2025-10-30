@@ -49,8 +49,8 @@ export default function Compare() {
 	const [score, setScore] = useState(0);
 	const [accuracy, setAccuracy] = useState(0);
 	const [roundsPlayed, setRoundsPlayed] = useState(0);
-	const [firstImageSrc, setFirstImageSrc] = useState(null);
-	const [secondImageSrc, setSecondImageSrc] = useState(null);
+	const [firstImageSrc, setFirstImageSrc] = useState(audiQ5);
+	const [secondImageSrc, setSecondImageSrc] = useState(bmwX3);
 	const [timeLeft, setTimeLeft] = useState(3); // 30 seconds timer
 	const [buttonsDisabled, setButtonsDisabled] = useState(true);
 	const [gameOver, setGameOver] = useState(false);
@@ -116,6 +116,7 @@ export default function Compare() {
 			firstCar = cars[firstIndex];
 			secondCar = cars[secondIndex];
 		}
+		
 
 
 
@@ -131,8 +132,9 @@ export default function Compare() {
 					stagger: 0.1,
 					ease: "power2.out",
 					onComplete: () => {
-						firstCarRef.current!.src = firstCar.src;
-						secondCarRef.current!.src = secondCar.src;
+						// Update the car images
+						setFirstImageSrc(firstCar!);
+						setSecondImageSrc(secondCar!);
 					}
 				}
 			)

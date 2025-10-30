@@ -630,7 +630,9 @@ export default function Trivia() {
 		// Prevent running on initial render
 		if (currentQuestion === 0) return;
 
-		newQuestion();
+		setTimeout(() => {
+			newQuestion();
+		}, 0);
 	}, [currentQuestion]);
 
 
