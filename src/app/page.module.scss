@@ -10,7 +10,7 @@
 	
 	@include mx.flex-vertical-list;
 	
-	padding: 2 * spacing.$unit;
+	padding: 4 * spacing.$unit;
 	padding-top: 4 * spacing.$unit;
 
 
@@ -54,11 +54,11 @@
 		
 		.gamesCont {
 			width: 100%;
-			max-width: 1024px;
+			max-width: 800px;
 
 			// Grid layout for the game links, with responsive columns
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 			gap: 2 * spacing.$unit;
 		}
 	}

@@ -125,12 +125,12 @@ export default function Find() {
 					else if (score < 15) return "medium";
 					else return "high";
 				case "medium":
-					if (score < 8) return "low";
-					else if (score < 12) return "medium";
+					if (score < 7) return "low";
+					else if (score < 10) return "medium";
 					else return "high";
 				case "hard":
-					if (score < 5) return "low";
-					else if (score < 8) return "medium";
+					if (score < 4) return "low";
+					else if (score < 6) return "medium";
 					else return "high";
 				default:
 					return "high";
@@ -266,7 +266,7 @@ export default function Find() {
 			const finalMessage =
 				scoreWorth === "high" && difficulty === "hard" ? "Wow! You've got a keen eye! Very impressive."
 				: scoreWorth === "high" ? "Wow! You've got a keen eye! Wanna try a difficulty up?" 
-				: scoreWorth === "medium" ? `Good score, but let's see if you can get into the green zone!`
+				: scoreWorth === "medium" ? `Decent, but let's see if you can get into the green zone!`
 				: score <= 0 ? "Yikes... that didn't go well. Try your luck again?"
 				: `Come on, you can do better than ${score}! Let's try again!`;
 
@@ -571,8 +571,8 @@ export default function Find() {
 
 
 		<div className={ styles.introCont } ref={ introContRef }>
-			<h2>Same / Different</h2>
-			<p>See how well you can tell apart our models.<br /><br />You&apos;ll be shown two cars and you have to identify if they&apos;re the same or different. Try to get as many right as you can within the time limit!</p>
+			<h2>Find it!</h2>
+			<p>Test how eagle-eyed you are!<br /><br />You&apos;ll be shown a target car and a series of randomly-generated models. Your job is to identify the target car among these models. One you answer, the grid will reset. Try to get as many right as you can within the time limit!</p>
 			<div className={ styles.buttonsCont }>
 				<Button.Large className={ styles.beginButton } onClick={ () => {
 					// Start the trivia with the function

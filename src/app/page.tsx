@@ -11,6 +11,7 @@ import GameLink from "@/components/GameLink";
 import logoCombHoriz from "@/assets/logo/logo-comb-horiz.svg";
 import pictogramTrivia from "@/assets/images/game-pictograms/pictogram-trivia.webp"
 import pictogramCompare from "@/assets/images/game-pictograms/pictogram-compare.webp"
+import pictogramFind from "@/assets/images/game-pictograms/pictogram-find.webp"
 
 
 
@@ -35,6 +36,12 @@ export default function Home() {
 				title="Trivia Challenge"
 				description="Test your knowledge of car facts and figures"
 				imgSource={ pictogramTrivia }
+			/>
+			<GameLink 
+				href="/find" 
+				title="Find it"
+				description="Can you find one model amongst many?"
+				imgSource={ pictogramFind }
 			/>
 			<GameLink 
 				href="/compare" 

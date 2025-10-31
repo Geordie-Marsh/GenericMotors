@@ -11,15 +11,18 @@
 	// @include mx.standard-shadow;
 	@include mx.standard-rounded;
 	@include mx.gap(m);
+	justify-content: flex-start;
 
 	.imageCont {
 		width: 100%;
 		height: auto;
-		margin-bottom: 1 * spacing.$unit;
+		// margin-bottom: 1 * spacing.$unit;
+		padding: 1 * spacing.$unit;
+
 
 		.image {
 			width: 100%;
-			max-width: 480px;
+			// max-width: 380px;
 			height: auto;
 		}
 	}
