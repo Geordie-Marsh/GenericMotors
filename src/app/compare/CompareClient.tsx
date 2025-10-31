@@ -315,7 +315,7 @@ export default function Compare() {
 
 
 
-	
+
 
 	if (!isLoaded) {
     	return (
@@ -478,6 +478,16 @@ export default function Compare() {
 		newCars();
 	}
 
+	function newHardGame() {
+		// Set the blur on the car images
+		if (firstCarRef.current && secondCarRef.current) {
+			firstCarRef.current.style.filter = "blur(0.5vw)";
+			secondCarRef.current.style.filter = "blur(0.5vw)";
+		}
+
+		newGame();
+	}
+
 
 	function newGame() {
 		// Reset score and rounds played
@@ -610,6 +620,14 @@ export default function Compare() {
 				}, 300);
 			} }>
 				<h3>Begin!</h3>
+			</Button.Large>
+			<Button.Large className={ styles.hardBeginButton } onClick={ () => {
+				// Start the trivia with the function
+				setTimeout(() => {
+					newHardGame();
+				}, 300);
+			} }>
+				<h3>Hard mode</h3>
 			</Button.Large>
 		</div>
 
