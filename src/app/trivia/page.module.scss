@@ -40,19 +40,64 @@
 		top: 0;
 		left: 0;
 		padding: 4 * spacing.$unit;
-		padding-bottom: 8 * spacing.$unit;
-
+		padding-bottom: 6 * spacing.$unit;
 		@include mx.flex-vertical-list;
 		@include mx.gap(m);
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
 
-		* {
-			width: 100%;;
+
+
+		.gameDetails {
+			width: 100%;
+			@include mx.flex-vertical-list;
+			@include mx.gap(m);
+			justify-content: flex-end;
+			align-items: center;
+	
+			* {
+				width: 100%;;
+				max-width: 500px;
+			}
+	
+			.buttonsCont {
+				@include mx.flex-vertical-list;
+				@include mx.gap(s);
+				margin-top: 2 * spacing.$unit;
+			}
 		}
 
-		.beginButton {
-			margin-top: 2 * spacing.$unit;
+		header {
+			width: 100%;
+			max-width: 500px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			height: fit-content;
+
+			.close {
+				height: 2 * spacing.$unit;
+				width: 2 * spacing.$unit;
+				align-self: flex-start;
+
+				img {
+					margin: auto;
+				}
+			}
+
+			.logo {
+				height: 1.2 * spacing.$unit;
+				width: auto;
+				align-self: center;
+				justify-self: flex-end;
+
+				img {
+					margin: auto;
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
 		}
 	}
 

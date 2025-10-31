@@ -15,6 +15,7 @@ import * as Button from "@/components/Button";
 
 // Importing icons
 import iconClose from "@/assets/icons/close.svg";
+import logo from "@/assets/logo/logo-comb-horiz.svg";
 
 // Importing images
 import audiQ5 from "@/assets/images/cars/audi-q5.webp";
@@ -620,24 +621,45 @@ export default function Compare() {
 
 
 		<div className={ styles.introCont } ref={ introContRef }>
-			<h2>Same / Different</h2>
-			<p>See how well you can tell apart our models.<br /><br />You&apos;ll be shown two cars and you have to identify if they&apos;re the same or different. Try to get as many right as you can within the time limit!</p>
-			<Button.Large className={ styles.beginButton } onClick={ () => {
-				// Start the trivia with the function
-				setTimeout(() => {
-					newGame();
-				}, 300);
-			} }>
-				<h3>Begin!</h3>
-			</Button.Large>
-			<Button.Large className={ styles.hardBeginButton } onClick={ () => {
-				// Start the trivia with the function
-				setTimeout(() => {
-					newHardGame();
-				}, 300);
-			} }>
-				<h3>Hard mode</h3>
-			</Button.Large>
+			<header>
+				<Button.Small className={ styles.close } onClick={ () => {
+					// Close the trivia - go back to home page
+					window.location.href = "/";
+				} }>
+					<Image 
+						src={ iconClose } 
+						alt="Close icon" 
+					/>
+				</Button.Small>
+				<Image src={ logo } alt="Logo" className={ styles.logo } onClick={ () => {
+					// Go back to home page
+					window.location.href = "/";
+				} }/>
+
+			</header>
+
+			<div className={ styles.gameDetails }>
+				<h2>Same / Different</h2>
+				<p>See how well you can tell apart our models.<br /><br />You&apos;ll be shown two cars and you have to identify if they&apos;re the same or different. Try to get as many right as you can within the time limit!</p>
+				<div className={ styles.buttonsCont }>
+					<Button.Large className={ styles.beginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							newGame();
+						}, 300);
+					} }>
+						<h3>Normal mode</h3>
+					</Button.Large>
+					<Button.Large className={ styles.hardBeginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							newHardGame();
+						}, 300);
+					} }>
+						<h3>Hard mode</h3>
+					</Button.Large>
+				</div>
+			</div>
 		</div>
 
 

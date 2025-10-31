@@ -15,6 +15,7 @@ import * as Button from "@/components/Button";
 
 // Importing icons
 import iconClose from "@/assets/icons/close.svg";
+import logo from "@/assets/logo/logo-comb-horiz.svg";
 
 // Importing images
 import audiQ5 from "@/assets/images/cars/audi-q5.webp";
@@ -571,33 +572,52 @@ export default function Find() {
 
 
 		<div className={ styles.introCont } ref={ introContRef }>
-			<h2>Find it!</h2>
-			<p>Test how eagle-eyed you are!<br /><br />You&apos;ll be shown a target car and a series of randomly-generated models. Your job is to identify the target car among these models. One you answer, the grid will reset. Try to get as many right as you can within the time limit!</p>
-			<div className={ styles.buttonsCont }>
-				<Button.Large className={ styles.beginButton } onClick={ () => {
-					// Start the trivia with the function
-					setTimeout(() => {
-						newGame("easy");
-					}, 300);
+			<header>
+				<Button.Small className={ styles.close } onClick={ () => {
+					// Close the trivia - go back to home page
+					window.location.href = "/";
 				} }>
-					<h3>Easy mode</h3>
-				</Button.Large>
-				<Button.Large className={ styles.beginButton } onClick={ () => {
-					// Start the trivia with the function
-					setTimeout(() => {
-						newGame("medium");
-					}, 300);
-				} }>
-					<h3>Medium mode</h3>
-				</Button.Large>
-				<Button.Large className={ styles.beginButton } onClick={ () => {
-					// Start the trivia with the function
-					setTimeout(() => {
-						newGame("hard");
-					}, 300);
-				} }>
-					<h3>Hard mode</h3>
-				</Button.Large>
+					<Image 
+						src={ iconClose } 
+						alt="Close icon" 
+					/>
+				</Button.Small>
+				<Image src={ logo } alt="Logo" className={ styles.logo } onClick={ () => {
+					// Go back to home page
+					window.location.href = "/";
+				} }/>
+
+			</header>
+
+			<div className={ styles.gameDetails }>
+				<h2>Find it!</h2>
+				<p>Test how eagle-eyed you are!<br /><br />You&apos;ll be shown a target car and a series of randomly-generated models. Your job is to identify the target car among these models. One you answer, the grid will reset. Try to get as many right as you can within the time limit!</p>
+				<div className={ styles.buttonsCont }>
+					<Button.Large className={ styles.beginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							newGame("easy");
+						}, 300);
+					} }>
+						<h3>Easy mode</h3>
+					</Button.Large>
+					<Button.Large className={ styles.beginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							newGame("medium");
+						}, 300);
+					} }>
+						<h3>Medium mode</h3>
+					</Button.Large>
+					<Button.Large className={ styles.beginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							newGame("hard");
+						}, 300);
+					} }>
+						<h3>Hard mode</h3>
+					</Button.Large>
+				</div>
 			</div>
 		</div>
 

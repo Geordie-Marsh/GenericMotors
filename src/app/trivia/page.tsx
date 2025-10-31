@@ -16,6 +16,7 @@ import * as Button from "@/components/Button";
 
 // Importing icons
 import iconClose from "@/assets/icons/close.svg";
+import logo from "@/assets/logo/logo-comb-horiz.svg";
 
 // Importing images
 import triviaLength from "@/assets/images/trivia/length001.webp";
@@ -742,16 +743,37 @@ export default function Trivia() {
 
 
 		<div className={ styles.introCont } ref={ introContRef }>
-			<h2>Trivia</h2>
-			<p>Test your knowledge about our most popular model, <b>the Toyota RAV4</b>, by answering a series of questions!</p>
-			<Button.Large className={ styles.beginButton } onClick={ () => {
-				// Start the trivia with the function
-				setTimeout(() => {
-					beginTrivia();
-				}, 300);
-			} }>
-				<h3>Begin!</h3>
-			</Button.Large>
+			<header>
+				<Button.Small className={ styles.close } onClick={ () => {
+					// Close the trivia - go back to home page
+					window.location.href = "/";
+				} }>
+					<Image 
+						src={ iconClose } 
+						alt="Close icon" 
+					/>
+				</Button.Small>
+				<Image src={ logo } alt="Logo" className={ styles.logo } onClick={ () => {
+					// Go back to home page
+					window.location.href = "/";
+				} }/>
+
+			</header>
+
+			<div className={ styles.gameDetails }>
+				<h2>Trivia</h2>
+				<p>Test your knowledge about our most popular model, <b>the Toyota RAV4</b>, by answering a series of questions!</p>
+				<div className={ styles.buttonsCont }>
+					<Button.Large className={ styles.beginButton } onClick={ () => {
+						// Start the trivia with the function
+						setTimeout(() => {
+							beginTrivia();
+						}, 300);
+					} }>
+						<h3>Begin!</h3>
+					</Button.Large>
+				</div>
+			</div>
 		</div>
 
 
