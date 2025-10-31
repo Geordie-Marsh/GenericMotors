@@ -494,6 +494,10 @@ export default function Compare() {
 		setScore(0);
 		setRoundsPlayed(0);
 		setAccuracy(0);
+		// Make the timer black again
+		if (timerRef.current) {
+			timerRef.current.style.color = "#181818";
+		}
 
 		newCars();
 
@@ -547,6 +551,11 @@ export default function Compare() {
 			// Clear any existing timer
 			const timerInterval = setInterval(() => {
 				setTimeLeft((prevTime) => {
+					// When the time reaches 5, turn the timer red
+					if (prevTime === 6) {
+						timerRef.current!.style.color = "#ff505b";
+					}
+
 					if (prevTime <= 1) {
 						clearInterval(timerInterval);
 						

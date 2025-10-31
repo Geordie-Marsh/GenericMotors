@@ -1,0 +1,174 @@
+// Dependencies
+@use "@styles/globals/spacing";
+@use "@styles/globals/colours";
+@use "@styles/globals/effects";
+@use "@styles/globals/mixins" as mx;
+
+.findCont {
+	width: 100%;
+
+	@include mx.flex-vertical-list;
+	@include mx.gap(l);
+	// On smaller screens, reduce the gap
+	@media (max-width: 650px) {
+		@include mx.gap(m);
+	}
+
+	height: 100vh; // Support for older browsers
+	height: 100dvh; // Full viewport height on modern browsers
+	max-height: 100dvh;
+
+	padding: 2 * spacing.$unit;
+	padding-bottom: 4 * spacing.$unit;
+
+
+
+	header {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		height: fit-content;
+		
+		.close {
+			height: 2 * spacing.$unit;
+			aspect-ratio: 1 / 1;
+			padding: 0.5 * spacing.$unit;
+
+			img {
+				margin: auto;
+			}
+		}
+
+		.timer {
+			text-align: center;
+			margin: auto;
+			height: 2 * spacing.$unit;
+			line-height: 1.7 * spacing.$unit;
+			// visibility: hidden;
+		}
+
+		.score {
+			text-align: right;
+			justify-self: flex-end;
+			align-self: center;
+		}
+	}
+
+	.desiredCarCont {
+		width: fit-content;
+		// max-width: 400px;
+		margin: 0 auto;
+
+		@include mx.flex-horizontal-list;
+		@include mx.gap(m);
+		align-items: center;
+		text-align: center;
+
+		background: colours.$white;
+		box-shadow: inset effects.$box-shadow;
+		@include mx.standard-rounded;
+		// padding: 1.4 * spacing.$unit 2 * spacing.$unit 1.2 * spacing.$unit;
+		padding: 0 2 * spacing.$unit;
+
+		.desiredCarImageCont {
+			width: 150px;
+			height: 100%;
+			object-fit: contain;
+			overflow: hidden;
+			padding: 1.4 * spacing.$unit 0 1.2 * spacing.$unit;
+
+			@media (min-width: 650px) {
+				width: 200px;
+			}
+
+			@media (min-width: 1000px) {
+				width: 300px;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+
+		h3 {
+			color: colours.$grey;
+		}
+	}
+
+	.gameCont {
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+
+		.carGrid {
+			width: 100%;
+			height: 100%;
+			display: grid;
+			@include mx.gap(m);
+			// On smaller screens, reduce the gap
+			@media (max-height: 750px) {
+				@include mx.gap(s);
+			}
+			min-height: 0;
+
+			// Different grid layouts depending on difficulty. These grids change layout depending on the size of the screen
+			&.carGrid--easy {
+				grid-template-columns: 1fr;
+				grid-template-rows: repeat(4, 1fr);
+				
+				@media (min-width: 650px) {
+					grid-template-columns: repeat(2, 1fr);
+					grid-template-rows: repeat(2, 1fr);
+				}
+
+				// @media (min-width: 1000px) {
+				// 	grid-template-columns: repeat(4, 1fr);
+				// 	grid-template-rows: 1fr;
+				// }
+			}
+			&.carGrid--medium {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(3, 1fr);
+
+				@media (min-width: 900px) {
+					grid-template-columns: repeat(3, 1fr);
+					grid-template-rows: repeat(2, 1fr);
+				}
+
+				// @media (min-width: 1200px) {
+				// 	grid-template-columns: repeat(6, 1fr);
+				// 	grid-template-rows: 1fr;
+				// }
+			}
+			&.carGrid--hard {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(6, 1fr);
+
+				@media (min-width: 550px) {
+					grid-template-columns: repeat(3, 1fr);
+					grid-template-rows: repeat(4, 1fr);
+				}
+
+				@media (min-width: 1000px) {
+					grid-template-columns: repeat(4, 1fr);
+					grid-template-rows: repeat(3, 1fr);
+				}
+			}
+
+			.carCont {
+				width: 100%;
+				height: 100%;
+				min-height: 0;
+				cursor: pointer;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: contain;
+					border-radius: 0.5 * spacing.$unit;
+				}
+			}
+		}
+	}
+}
