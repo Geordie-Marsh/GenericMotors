@@ -353,9 +353,7 @@ export default function Trivia() {
 			const buttons = finishedButtonsCont!.children;
 			gsap.fromTo(buttons, {
 				opacity: 0,
-				scale: 0,
 			}, {
-				scale: 1, 
 				opacity: 1,
 				duration: 0.3, 
 				stagger: 0.2,
